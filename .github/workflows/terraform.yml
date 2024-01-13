@@ -16,7 +16,7 @@ jobs:
   terraform:
     name: 'Terraform plan'
     runs-on: ubuntu-latest
-    environment: playground
+    environment: playgroundS
   
     # Use the Bash shell regardless of whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
