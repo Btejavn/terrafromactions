@@ -5,13 +5,6 @@ terraform {
       version = ">= 2.46.0"  # Update this version to the latest available
     }
   }
-
-  backend "azurerm" {
-    resource_group_name  = "friday-demo-rg"
-    storage_account_name = "sttfstatemgt01"
-    container_name       = "tfstate"
-    key                  = "demo.terraform.tfstate"
-  }
 }
 
 # Configure the Microsoft Azure Provider
