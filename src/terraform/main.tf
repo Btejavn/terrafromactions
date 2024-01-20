@@ -7,23 +7,9 @@ terraform {
   }
 }
 
-provider "azurerm" {
-  features {
-    resource_group {
-      prevent_deletion_if_contains_resources = false
-    }
-  }
-  subscription_id = "174f8eaf-055a-4a26-b573-1c3d35723ecb"
-}
-
 # Create a resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "test-rg"
-  location = "eastus"
-}
-
-resource "azurerm_resource_group" "rg1" {
-  name     = "test-r1"
+  name     = "test-rg3"
   location = "eastus"
 }
 
