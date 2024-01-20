@@ -67,6 +67,10 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve
       working-directory: ${{ env.ROOT_PATH }}
+    
+    - name: Terraform delete
+      run: terraform destory
+      working-directory: ${{ env.ROOT_PATH}}
 
 
 
