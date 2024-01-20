@@ -5,24 +5,23 @@ on:
     branches:
       - main
     paths:
-      - "/src/terraform/*"
+      - "src/terraform/**" # Adjust the path pattern based on your repository structure
   pull_request:
     branches:
       - main
-  workflow_dispatch: #this attribute will enable the manual run to the pipeline
-  
+  workflow_dispatch:
 
-# Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
 defaults:
   run:
     shell: bash
+
 env: 
   ROOT_PATH: '${{github.workspace}}/src/terraform'
   ARM_CLIENT_ID: ${{secrets.AZURE_CLIENT_ID}}
   ARM_CLIENT_SECRET: ${{secrets.AZURE_CLIENT_SECRET}}
   ARM_SUBSCRIPTION_ID: ${{secrets.AZURE_SUBSCRIPTION_ID}}
   ARM_TENANT_ID: ${{secrets.AZURE_TENANT_ID}}
-  STAGE_NAME: productio
+  STAGE_NAME: production
 
 jobs:
   terraform_plan:
@@ -33,19 +32,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup terraform
+    - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
+        terraform_version: 0.14.0 # Specify a version suitable for your configuration
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
   
-    - name: terraform init
+    - name: Terraform Init
       run: terraform init
       working-directory: ${{ env.ROOT_PATH }}
 
-    - name: terraform Plan
+    - name: Terraform Plan
       run: terraform plan 
       working-directory: ${{ env.ROOT_PATH }}
-
 
   terraform_deploy:
     name: 'Terraform Deploy'
@@ -59,6 +58,7 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       with:
+        terraform_version: 0.14.0 # Specify a version suitable for your configuration
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
   
     - name: Terraform Init
@@ -68,7 +68,7 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve
       working-directory: ${{ env.ROOT_PATH }}
-    
+
 
 
 
