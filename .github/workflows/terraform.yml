@@ -49,6 +49,7 @@ jobs:
 
   terraform_deploy:
     name: 'Terraform Deploy'
+    needs: [terraform_plan]
     runs-on: ubuntu-latest
     
     steps:

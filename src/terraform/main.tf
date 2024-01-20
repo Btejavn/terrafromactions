@@ -25,6 +25,9 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_resource_group" "rg1" {
   name     = "test-r1"
   location = "eastus"
+  tags =  {
+    env = bhanu
+  }
 }
 
 
