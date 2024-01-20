@@ -2,9 +2,13 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = ">= 2.46.0"  # Update this version to the latest available
+      version = ">= 2.46.0"
     }
   }
+}
+
+provider "azurerm" {
+  features = {}
 }
 
 # Create a resource group
