@@ -25,10 +25,18 @@ resource "azurerm_resource_group" "rg" {
 resource "azurerm_resource_group" "rg1" {
   name     = "test-r1"
   location = "eastus"
-  tags =  {
-    env = bhanu
-  }
 }
 
+resource "azurerm_storage_account" "sg_account" {
+  name                     = "examplestorageaccount"
+  resource_group_name      = azurerm_resource_group.rg
+  location                 = azurerm_resource_group.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = {
+    environment = "dev"
+  }
+}
 
 
