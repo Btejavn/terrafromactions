@@ -47,6 +47,34 @@ jobs:
       working-directory: ${{ env.ROOT_PATH }}
 
 
+  terraform_deploy:
+    name: 'Terraform Deploy'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+  
+    - name: Terraform Init
+      run: terraform init
+      working-directory: ${{ env.ROOT_PATH }}
+
+    - name: Terraform Apply
+      run: terraform apply -auto-approve
+      working-directory: ${{ env.ROOT_PATH }}
+
+
+
+
+  
+    
+
+
 
 
 
