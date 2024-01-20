@@ -19,7 +19,7 @@ resource "azurerm_resource_group" "rg" {
 }
 
 resource "azurerm_storage_account" "sg_account" {
-  name                     = "examplestorageaccount"
+  name                     = "staccounbt"
   resource_group_name      = azurerm_resource_group.rg.name
   location                 = azurerm_resource_group.rg.location
   account_tier             = "Standard"
