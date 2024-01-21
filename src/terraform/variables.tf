@@ -36,5 +36,5 @@ variable "vm_size" {
 variable "nic" {
   description = "Network Interface IDs"
   type        = list(string)
-  default     = my-nic
+  default     = ["my-nic"]
 }
