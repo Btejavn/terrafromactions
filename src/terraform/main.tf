@@ -18,6 +18,19 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
+resource "azurerm_virtual_network" "vnet" {
+  name                = var.vnet_name
+  resource_group_name = var.resource_group_name
+  location            = var.location
+  address_space       = ["10.0.0.0/16"]  # Customize the address space as needed
+}
+ resource "azurerm_subnet" "subnet" {
+  name                 = "internal"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = var.vnet_name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
 resource "azurerm_windows_virtual_machine" "vm" {
   name                  = var.vm_name
   resource_group_name   = var.resource_group_name
@@ -39,7 +52,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = "nic-vm"
+  name                = var.nic
   resource_group_name = var.resource_group_name
   location            = var.location
     ip_configuration {
@@ -50,15 +63,4 @@ resource "azurerm_network_interface" "nic" {
 }
 
 
-resource "azurerm_virtual_network" "vnet" {
-  name                = var.vnet_name
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  address_space       = ["10.0.0.0/16"]  # Customize the address space as needed
-}
- resource "azurerm_subnet" "subnet" {
-  name                 = "internal"
-  resource_group_name  = var.resource_group_name
-  virtual_network_name = var.vnet_name
-  address_prefixes     = ["10.0.2.0/24"]
-}
+
