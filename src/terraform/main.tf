@@ -31,36 +31,3 @@ resource "azurerm_virtual_network" "vnet" {
   address_prefixes     = ["10.0.2.0/24"]
 }
 
-resource "azurerm_windows_virtual_machine" "vm" {
-  name                  = var.vm_name
-  resource_group_name   = var.resource_group_name
-  location              = var.location
-  size                  = var.vm_size
-  admin_username        = "adminuser"
-  admin_password        = "Password1234!"  # Replace with your own secure password
-  network_interface_ids = var.nic
-  os_disk {
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
-  }
-  source_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2016-Datacenter"
-    version   = "latest"
-  }
-}
-
-resource "azurerm_network_interface" "nic" {
-  name                = "nic"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-    ip_configuration {
-    name                          = "internal"
-    subnet_id                     = var.subnet_name
-    private_ip_address_allocation = "Dynamic"
-  }
-}
-
-
-
