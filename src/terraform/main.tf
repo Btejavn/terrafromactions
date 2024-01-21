@@ -30,24 +30,35 @@ resource "azurerm_windows_virtual_machine" "vm" {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
+  source_image_reference {
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2016-Datacenter"
+    version   = "latest"
+  }
 }
 
 resource "azurerm_network_interface" "nic" {
   name                = "nic-vm"
   resource_group_name = var.resource_group_name
   location            = var.location
+    ip_configuration {
+    name                          = "internal"
+    subnet_id                     = var.subnet_name
+    private_ip_address_allocation = "Dynamic"
+  }
 }
+
 
 resource "azurerm_virtual_network" "vnet" {
   name                = var.vnet_name
   resource_group_name = var.resource_group_name
   location            = var.location
   address_space       = ["10.0.0.0/16"]  # Customize the address space as needed
-
-  subnet {
-    name           = var.subnet_name
-    address_prefix = "10.0.1.0/24"  # Customize the subnet address space as needed
-  }
 }
-
-
+ resource "azurerm_subnet" "subnet" {
+  name                 = "internal"
+  resource_group_name  = var.resource_group_name
+  virtual_network_name = var.vnet_name
+  address_prefixes     = ["10.0.2.0/24"]
+}

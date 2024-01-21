@@ -15,6 +15,18 @@ variable "vm_name" {
   type        = string
   default     = "my-vm"
 }
+variable "vnet_name" {
+  description = "Name of the virtual network"
+  type        = string
+  default     = "my-vnet"
+}
+
+variable "subnet_name" {
+  description = "Name of the subnet"
+  type        = string
+  default     = "my-subnet"
+}
+
 
 variable "vm_size" {
   description = "Size of the virtual machine"
