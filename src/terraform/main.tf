@@ -14,20 +14,8 @@ provider "azurerm" {
   
 # Create a resource group
 resource "azurerm_resource_group" "rg" {
-  name     = "test-rg4"
-  location = "eastus"
-}
-
-resource "azurerm_storage_account" "sg_account" {
-  name                     = "staccounbt"
-  resource_group_name      = azurerm_resource_group.rg.name
-  location                 = azurerm_resource_group.rg.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  tags = {
-    environment = "dev"
-  }
+  name     = var.resource_group_name
+  location = var.location
 }
 
 
