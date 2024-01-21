@@ -52,7 +52,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
 }
 
 resource "azurerm_network_interface" "nic" {
-  name                = var.nic
+  name                = "nic"
   resource_group_name = var.resource_group_name
   location            = var.location
     ip_configuration {
